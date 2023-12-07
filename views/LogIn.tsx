@@ -8,7 +8,6 @@ import {Keyboard} from 'react-native';
 import * as eva from '@eva-design/eva';
 import {ApplicationProvider, IconRegistry, Layout} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
-type Props = {};
 
 const LogIn = (): JSX.Element => {
   return (
