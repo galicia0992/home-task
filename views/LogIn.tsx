@@ -8,8 +8,12 @@ import {Keyboard} from 'react-native';
 import * as eva from '@eva-design/eva';
 import {ApplicationProvider, IconRegistry, Layout} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
+import LogInButton from '../components/LogInButton';
+import CreateAccountButton from '../components/CreateAccountButton';
 
 const LogIn = (): JSX.Element => {
+  const [showBtn, setShowBtn] = useState<boolean>(false)
+  console.log(showBtn)
   return (
     <ImageBackground
       source={require('../img/mt2.jpg')}
@@ -26,19 +30,13 @@ const LogIn = (): JSX.Element => {
                 Inicia sesion en tu cuenta
               </Text>
             </View>
-            <NavBarEmail></NavBarEmail>
+            <NavBarEmail
+            setShowBtn={setShowBtn}
+            ></NavBarEmail>
             <View style={{marginTop: '70%'}}>
-              <Button
-                appearance="filled"
-                status="primary"
-                style={{width: 320, height: 52}}>
-                {() => (
-                  <Text
-                    style={{color: '#FFFF', fontSize: 20, fontFamily: 'Roboto-Light',}}>
-                    Iniciar sesion
-                  </Text>
-                )}
-              </Button>
+              {
+                !showBtn ? <LogInButton></LogInButton>:<CreateAccountButton></CreateAccountButton>
+              }
             </View>
           </View>
         </TouchableWithoutFeedback>

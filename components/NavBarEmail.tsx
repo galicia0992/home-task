@@ -4,7 +4,10 @@ import {StyleSheet} from 'react-native';
 import LogInInputs from './LogInInputs';
 import CreateAccount from './CreateAccount';
 
-const NavBarEmail = (): JSX.Element => {
+interface Props{
+  setShowBtn:any
+}
+const NavBarEmail = ({setShowBtn}:Props): JSX.Element => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   return (
@@ -15,12 +18,12 @@ const NavBarEmail = (): JSX.Element => {
       tabBarStyle={{backgroundColor:"#00000000"}}
       indicatorStyle={{backgroundColor:"#FFFF", height:1}}
       >
-      <Tab title={() => <Text style={styles.text}>Ingresar correo</Text>}>
+      <Tab onPressIn={() => setShowBtn(false)} title={() => <Text style={styles.text}>Ingresar correo</Text>}>
         <Layout style={styles.tabContainer}>
           <LogInInputs></LogInInputs>
         </Layout>
       </Tab>
-      <Tab title={() => <Text style={styles.text}>Crear cuenta</Text>}>
+      <Tab onPressIn={() => setShowBtn(true)}  title={() => <Text style={styles.text}>Crea tu cuenta</Text>}>
         <Layout style={styles.tabContainer}>
           <CreateAccount></CreateAccount>
         </Layout>

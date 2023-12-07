@@ -10,6 +10,8 @@ const LogInInputs = () => {
     const [emailFocus, setEmailFocus] = useState<string>("#00000000")
     const [passFocus, setPassFocus] = useState<string>("#00000000")
     const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
+    const [email, setEmail] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
 
     const renderInputIcon = (props: any): React.ReactElement => (
         <TouchableWithoutFeedback onPress={toggleSecureEntry}>
@@ -27,6 +29,7 @@ const LogInInputs = () => {
             placeholderTextColor={'#FFFF'}
             onFocus={() => setEmailFocus('#ffffff39')}
             onEndEditing={()=>setEmailFocus("#00000000")}
+            onChangeText={(value) => setEmail(value)}
             style={{
               backgroundColor: emailFocus,
               borderColor: '#ffffff89',
@@ -39,6 +42,7 @@ const LogInInputs = () => {
             onEndEditing={()=>setPassFocus("#00000000")}
             secureTextEntry={secureTextEntry}
             accessoryRight={renderInputIcon}
+            onChangeText={(value) => setPassword(value)}
             style={{
               backgroundColor: passFocus,
               borderColor: '#ffffff89',
