@@ -3,8 +3,7 @@ import React from 'react'
 import { useState } from 'react';
 import {Input, Icon, IconElement, Button} from '@ui-kitten/components';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-
-
+import CreateAccountButton from './CreateAccountButton';
 
 const CreateAccount = () => {
     const [emailFocus, setEmailFocus] = useState<string>("#00000000")
@@ -15,6 +14,7 @@ const CreateAccount = () => {
     const [confirmCreatePass, setConfirmCreatePass] = useState<string>("")
     const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
     const [secureConfirmTextEntry, setSecureConfirmTextEntry] = useState<boolean>(true);
+    
 
     const renderInputIcon = (props: any): React.ReactElement => (
         <TouchableWithoutFeedback onPress={toggleSecureEntry}>
@@ -34,13 +34,15 @@ const CreateAccount = () => {
       };
     
   return (
-    <View style={{width: '90%'}}>
+    <>
+    <View style={{width: '90%', marginBottom:"auto"}}>
           <Input
             placeholder="Email"
             placeholderTextColor={'#FFFF'}
             onFocus={() => setEmailFocus('#ffffff39')}
             onEndEditing={()=>setEmailFocus("#00000000")}
             onChangeText={(value) => setCreateEmail(value)}
+            value={createEmail}
             style={{
               backgroundColor: emailFocus,
               borderColor: '#ffffff89',
@@ -54,6 +56,7 @@ const CreateAccount = () => {
             secureTextEntry={secureTextEntry}
             accessoryRight={renderInputIcon}
             onChangeText={(value) => setCreatePass(value)}
+            value={createPass}
             style={{
               backgroundColor: passFocus,
               borderColor: '#ffffff89',
@@ -66,12 +69,22 @@ const CreateAccount = () => {
             secureTextEntry={secureConfirmTextEntry}
             accessoryRight={renderInputConfirmIcon}
             onChangeText={(value) => setConfirmCreatePass(value)}
+            value={confirmCreatePass}
             style={{
               backgroundColor: passConfirmFocus,
               borderColor: '#ffffff89',
               marginTop:20
             }}></Input>
         </View>
+        <CreateAccountButton
+        createEmail={createEmail}
+        setCreateEmail={setCreateEmail}
+        createPass={createPass}
+        setCreatePass={setCreatePass}
+        confirmCreatePass={confirmCreatePass}
+        setConfirmCreatePass={setConfirmCreatePass}
+        ></CreateAccountButton>
+    </>
   )
 }
 

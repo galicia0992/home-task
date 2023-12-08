@@ -33,7 +33,7 @@ const NavBarEmail = ({setShowBtn}:Props): JSX.Element => {
 };
 const styles = StyleSheet.create({
   tabContainer: {
-    height: 200,
+    height: 500,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: "#00000000"

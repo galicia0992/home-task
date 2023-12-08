@@ -10,10 +10,11 @@ import {ApplicationProvider, IconRegistry, Layout} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import LogInButton from '../components/LogInButton';
 import CreateAccountButton from '../components/CreateAccountButton';
+import { CreateUserProvider } from '../context/CreateAccountContext';
 
 const LogIn = (): JSX.Element => {
   const [showBtn, setShowBtn] = useState<boolean>(false)
-  console.log(showBtn)
+  
   return (
     <ImageBackground
       source={require('../img/mt2.jpg')}
@@ -33,11 +34,6 @@ const LogIn = (): JSX.Element => {
             <NavBarEmail
             setShowBtn={setShowBtn}
             ></NavBarEmail>
-            <View style={{marginTop: '70%'}}>
-              {
-                !showBtn ? <LogInButton></LogInButton>:<CreateAccountButton></CreateAccountButton>
-              }
-            </View>
           </View>
         </TouchableWithoutFeedback>
       </ApplicationProvider>
