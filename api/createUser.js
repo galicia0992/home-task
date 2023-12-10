@@ -8,7 +8,7 @@ const createUser = async (email, pass, setSelectedIndex) =>{
     
     const auth = FIREBASE_AUTH
     try {
-        const response = await createUserWithEmailAndPassword(auth, email, pass)
+        const response = await createUserWithEmailAndPassword(auth, email, pass);
         Alert.alert(` La cuenta ${email}, se ha dado de alta correctamente`, [
             {text: 'OK', onPress: () => console.log('OK Pressed')},
           ]);
