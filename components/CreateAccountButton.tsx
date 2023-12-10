@@ -1,9 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Input, Icon, IconElement, Button} from '@ui-kitten/components';
-import { useCreateUserContext } from '../context/CreateAccountContext';
 import createUser from '../api/createUser';
-
+import { useNavEmailIndexContext } from '../context/NavEmailContext';
 type Props = {
   createEmail:any,
   createPass:any,
@@ -14,8 +13,9 @@ type Props = {
 };
 
 const CreateAccountButton = ({createEmail, createPass, confirmCreatePass, setCreatePass, setCreateEmail, setConfirmCreatePass}: Props) => {
+  const setSelectedIndex = useNavEmailIndexContext()
   const userCreation = ():void =>{
-    createUser(createEmail, createPass)
+    createUser(createEmail, createPass, setSelectedIndex)
     setConfirmCreatePass("")
     setCreateEmail("")
     setCreatePass("")

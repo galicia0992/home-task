@@ -7,7 +7,7 @@ import {ApplicationProvider} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import NavBarBottom from './components/NavBarBottom';
 import { BottomNavProvider } from './context/BottomNavContext';
-
+import { NavEmailProvider } from './context/NavEmailContext';
 
 const Stack = createStackNavigator();
 function App(): JSX.Element {
