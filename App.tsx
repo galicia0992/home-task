@@ -8,6 +8,7 @@ import * as eva from '@eva-design/eva';
 import NavBarBottom from './components/NavBarBottom';
 import { BottomNavProvider } from './context/BottomNavContext';
 import { NavEmailProvider } from './context/NavEmailContext';
+import HeaderbackButton from './components/HeaderbackButton';
 
 const Stack = createStackNavigator();
 function App(): JSX.Element {
@@ -16,7 +17,7 @@ function App(): JSX.Element {
     <BottomNavProvider>
       <ApplicationProvider {...eva} theme={eva.light}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Log In">
+          <Stack.Navigator initialRouteName="Log in">
             <Stack.Screen
               name="Log in"
               component={LogIn}
@@ -25,7 +26,9 @@ function App(): JSX.Element {
                 headerStyle: {height:0},
               }}
             />
-            <Stack.Screen name="Tasks" component={Tasks} />
+            <Stack.Screen name="Tasks" component={Tasks} options={{
+                headerLeft:() => <HeaderbackButton></HeaderbackButton>
+              }}/>
           </Stack.Navigator>
         </NavigationContainer>
         <NavBarBottom></NavBarBottom>

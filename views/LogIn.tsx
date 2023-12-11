@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ImageBackground} from 'react-native';
 import NavBarEmail from '../components/NavBarEmail';
 import {TouchableWithoutFeedback} from 'react-native';
@@ -8,8 +8,15 @@ import * as eva from '@eva-design/eva';
 import {ApplicationProvider, IconRegistry, Layout} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import { NavEmailProvider } from '../context/NavEmailContext';
+import {useSetBooleanNavContext} from '../context/BottomNavContext';
 
 const LogIn = (): JSX.Element => {
+  const setBooleanNav = useSetBooleanNavContext()
+
+  useEffect(() => {
+   setBooleanNav(false)
+  }, [])
+  
   return (
     <ImageBackground
       source={require('../img/mt2.jpg')}

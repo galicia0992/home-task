@@ -27,6 +27,7 @@ const LogInInputs = () => {
         <Input
           placeholder="Email"
           placeholderTextColor={'#FFFF'}
+          textStyle={{color:"#FFFF"}}
           onFocus={() => setEmailFocus('#ffffff39')}
           onEndEditing={() => setEmailFocus('#00000000')}
           onChangeText={value => setEmail(value)}
@@ -38,6 +39,7 @@ const LogInInputs = () => {
         <Input
           placeholder="Contraseña"
           placeholderTextColor={'#FFFF'}
+          textStyle={{color:"#FFFF"}}
           onFocus={() => setPassFocus('#ffffff39')}
           onEndEditing={() => setPassFocus('#00000000')}
           secureTextEntry={secureTextEntry}

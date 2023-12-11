@@ -40,6 +40,7 @@ const CreateAccount = () => {
             placeholder="Email"
             placeholderTextColor={'#FFFF'}
             onFocus={() => setEmailFocus('#ffffff39')}
+            textStyle={{color:"#FFFF"}}
             onEndEditing={()=>setEmailFocus("#00000000")}
             onChangeText={(value) => setCreateEmail(value)}
             value={createEmail}
@@ -52,6 +53,7 @@ const CreateAccount = () => {
             placeholder="Contraseña"
             placeholderTextColor={'#FFFF'}
             onFocus={() => setPassFocus('#ffffff39')}
+            textStyle={{color:"#FFFF"}}
             onEndEditing={()=>setPassFocus("#00000000")}
             secureTextEntry={secureTextEntry}
             accessoryRight={renderInputIcon}
@@ -65,6 +67,7 @@ const CreateAccount = () => {
             placeholder="Confirmar contraseña"
             placeholderTextColor={'#FFFF'}
             onFocus={() => setPassConfirmFocus('#ffffff39')}
+            textStyle={{color:"#FFFF"}}
             onEndEditing={()=>setPassConfirmFocus("#00000000")}
             secureTextEntry={secureConfirmTextEntry}
             accessoryRight={renderInputConfirmIcon}
