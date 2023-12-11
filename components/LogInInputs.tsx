@@ -48,7 +48,10 @@ const LogInInputs = () => {
             borderColor: '#ffffff89',
           }}></Input>
       </View>
-      <LogInButton></LogInButton>
+      <LogInButton
+      email={email}
+      password={password}
+      ></LogInButton>
     </>
   );
 };
