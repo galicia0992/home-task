@@ -1,16 +1,20 @@
 import { getDatabase, ref, push } from "firebase/database"
 
 
-const newUserSpace = (email, link, categoria) =>{
+const newUserSpace = (email, tarea, categoria, usuarioSolicitante, completado) =>{
     const db = getDatabase()
     push(ref(db, `${email}/` + 0),{
+        usuarioSolicitante: usuarioSolicitante,
         category: categoria,
-        link: link,
-        id: Date.now()
+        tarea: tarea,
+        id: Date.now(),
+        completado: completado
     })
     push(ref(db, `${email}/` + 1),{
         category: categoria,
-        link: link,
+        usuarioSolicitante: usuarioSolicitante,
+        tarea: tarea,
+        completado: completado,
         id: Date.now()
     })
 }

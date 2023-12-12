@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {Input, Icon, IconElement, Button} from '@ui-kitten/components';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import CreateAccountButton from './CreateAccountButton';
@@ -9,11 +9,16 @@ const CreateAccount = () => {
     const [emailFocus, setEmailFocus] = useState<string>("#00000000")
     const [passFocus, setPassFocus] = useState<string>("#00000000")
     const [passConfirmFocus, setPassConfirmFocus] = useState<string>("#00000000")
+    const [nameFocus, setNameFocus] = useState<string>("#00000000")
+    const [lastNameFocus, setLastNameFocus] = useState<string>("#00000000")
     const [createEmail, setCreateEmail] = useState<string>("")
     const [createPass, setCreatePass] = useState<string>("")
     const [confirmCreatePass, setConfirmCreatePass] = useState<string>("")
+    const [name, setName] = useState<string>("")
+    const [lastName, setLastName] = useState<string>("")
     const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
     const [secureConfirmTextEntry, setSecureConfirmTextEntry] = useState<boolean>(true);
+    const [isDisabled, setIsDisabled] = useState<boolean>(true)
     
 
     const renderInputIcon = (props: any): React.ReactElement => (
@@ -32,7 +37,16 @@ const CreateAccount = () => {
       const toggleSecureEntry = (): void => {
         setSecureTextEntry(!secureTextEntry);
       };
-    
+      useEffect(() => {
+        const disabledHandler = (): void =>{
+          if(createEmail == "" || createPass== "" || confirmCreatePass == "" || name == "" || lastName ==""){
+            setIsDisabled(true)
+          }else{
+            setIsDisabled(false)
+          }
+        }
+        disabledHandler()
+      }, [createEmail, createPass, confirmCreatePass, name, lastName])
   return (
     <>
     <View style={{width: '90%', marginBottom:"auto"}}>
@@ -48,6 +62,32 @@ const CreateAccount = () => {
               backgroundColor: emailFocus,
               borderColor: '#ffffff89',
               marginVertical: 20,
+            }}></Input>
+            <Input
+            placeholder="Nombre"
+            placeholderTextColor={'#FFFF'}
+            onFocus={() => setNameFocus('#ffffff39')}
+            textStyle={{color:"#FFFF"}}
+            onEndEditing={()=>setNameFocus("#00000000")}
+            onChangeText={(value) => setName(value)}
+            value={name}
+            style={{
+              backgroundColor: nameFocus,
+              borderColor: '#ffffff89',
+              marginBottom:20
+            }}></Input>
+            <Input
+            placeholder="Apelidos"
+            placeholderTextColor={'#FFFF'}
+            onFocus={() => setLastNameFocus('#ffffff39')}
+            textStyle={{color:"#FFFF"}}
+            onEndEditing={()=>setLastNameFocus("#00000000")}
+            onChangeText={(value) => setLastName(value)}
+            value={lastName}
+            style={{
+              backgroundColor: lastNameFocus,
+              borderColor: '#ffffff89',
+              marginBottom:20
             }}></Input>
           <Input
             placeholder="Contraseña"
@@ -86,6 +126,12 @@ const CreateAccount = () => {
         setCreatePass={setCreatePass}
         confirmCreatePass={confirmCreatePass}
         setConfirmCreatePass={setConfirmCreatePass}
+        name={name}
+        setName={setName}
+        lastName={lastName}
+        setLastName={setLastName}
+        isDisabled={isDisabled}
+      setIsDisabled={setIsDisabled}
         ></CreateAccountButton>
     </>
   )

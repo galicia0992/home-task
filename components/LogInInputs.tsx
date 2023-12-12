@@ -1,6 +1,6 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Input, Icon, IconElement, Button} from '@ui-kitten/components';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import LogInButton from './LogInButton';
@@ -11,6 +11,7 @@ const LogInInputs = () => {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   const renderInputIcon = (props: any): React.ReactElement => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
@@ -20,7 +21,20 @@ const LogInInputs = () => {
   const toggleSecureEntry = (): void => {
     setSecureTextEntry(!secureTextEntry);
   };
-
+  
+    useEffect(() => {
+      const disabledHandler = (): void =>{
+        if(email == "" || password == ""){
+          
+          setIsDisabled(true)
+        }else{
+          setIsDisabled(false)
+        }
+      }
+      disabledHandler()
+    }, [email, password])
+    
+  
   return (
     <>
       <View style={{width: '90%', marginBottom:"auto"}}>
@@ -30,7 +44,8 @@ const LogInInputs = () => {
           textStyle={{color:"#FFFF"}}
           onFocus={() => setEmailFocus('#ffffff39')}
           onEndEditing={() => setEmailFocus('#00000000')}
-          onChangeText={value => setEmail(value)}
+          onChangeText={value => (setEmail(value))}
+          value={email}
           style={{
             backgroundColor: emailFocus,
             borderColor: '#ffffff89',
@@ -44,7 +59,8 @@ const LogInInputs = () => {
           onEndEditing={() => setPassFocus('#00000000')}
           secureTextEntry={secureTextEntry}
           accessoryRight={renderInputIcon}
-          onChangeText={value => setPassword(value)}
+          onChangeText={value => (setPassword(value))}
+          value={password}
           style={{
             backgroundColor: passFocus,
             borderColor: '#ffffff89',
@@ -53,6 +69,10 @@ const LogInInputs = () => {
       <LogInButton
       email={email}
       password={password}
+      setEmail={setEmail}
+      setPassword={setPassword}
+      isDisabled={isDisabled}
+      setIsDisabled={setIsDisabled}
       ></LogInButton>
     </>
   );
