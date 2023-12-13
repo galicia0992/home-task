@@ -7,7 +7,7 @@ import {ApplicationProvider} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import NavBarBottom from './components/NavBarBottom';
 import { BottomNavProvider } from './context/BottomNavContext';
-import { NavEmailProvider } from './context/NavEmailContext';
+import AddIconComponent from './components/icons/AddIconComponent';
 import HeaderbackButton from './components/HeaderbackButton';
 
 const Stack = createStackNavigator();
@@ -27,7 +27,10 @@ function App(): JSX.Element {
               }}
             />
             <Stack.Screen name="Tasks" component={Tasks} options={{
-                headerLeft:() => <HeaderbackButton></HeaderbackButton>
+                headerLeft:() => <HeaderbackButton></HeaderbackButton>,
+                headerRight:() => <AddIconComponent></AddIconComponent>,
+                title:"", 
+                headerStyle: {backgroundColor:"#FFFF", shadowColor: 'transparent'}
               }}/>
           </Stack.Navigator>
         </NavigationContainer>
