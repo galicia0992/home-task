@@ -1,27 +1,75 @@
-import {View, Text} from 'react-native';
+import {View, Text, SafeAreaView} from 'react-native';
 import React, { useState } from 'react';
 import {BottomNavigation, BottomNavigationTab} from '@ui-kitten/components';
-import {useBooleanNavContext} from '../context/BottomNavContext';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import HeaderbackButton from './HeaderbackButton';
+import AddIconComponent from './icons/AddIconComponent';
+import Notes from '../views/Notes';
+import Tasks from '../views/Tasks';
+import SharedTask from '../views/SharedTask';
 
-const NavBarBottom = (): JSX.Element => {
-  const booleanNav = useBooleanNavContext();
+const { Navigator, Screen } = createBottomTabNavigator();
+
+interface Props{
+  navigation:any,
+  state:any
+}
+
+
+const NavBarBottom = ({ navigation, state }: Props): JSX.Element => {
+  
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-
-  return (
-    <>
-      {!booleanNav ? (
-        ''
-      ) : (
-        <BottomNavigation
-          selectedIndex={selectedIndex}
-          onSelect={index => setSelectedIndex(index)}>
-          <BottomNavigationTab title="Notas" />
-          <BottomNavigationTab title="Tareas individuales" />
-          <BottomNavigationTab title="Tareas compartidas" />
-        </BottomNavigation>
-      )}
-    </>
-  );
+      return(
+        <>
+        {
+            <BottomNavigation
+              selectedIndex={state.index}
+              onSelect={index => navigation.navigate(state.routeNames[index])}
+              >
+              <BottomNavigationTab title="Tareas individuales" />
+              <BottomNavigationTab title="Notas" />
+              <BottomNavigationTab title="Tareas compartidas" />
+            </BottomNavigation>
+          
+        }
+        </>
+      )
+    
 };
 
-export default NavBarBottom;
+export const TabNavigator = () => (
+  <Navigator tabBar={props => <NavBarBottom {...props} />}>
+    <Screen name='TasksNav' component={Tasks}
+     options={{
+      headerLeft:() => <HeaderbackButton></HeaderbackButton>,
+      headerRight:() => <AddIconComponent></AddIconComponent>,
+      title:"", 
+      headerStyle: {backgroundColor:"#FFFF", shadowColor: 'transparent'}
+    }}/>
+    <Screen name='Notes' component={Notes}
+    options={{
+      headerLeft:() => <HeaderbackButton></HeaderbackButton>,
+      headerRight:() => <AddIconComponent></AddIconComponent>,
+      title:"", 
+      headerStyle: {backgroundColor:"#FFFF", shadowColor: 'transparent'}
+    }}
+    />
+    <Screen name='Shared' component={SharedTask}
+    options={{
+      headerLeft:() => <HeaderbackButton></HeaderbackButton>,
+      headerRight:() => <AddIconComponent></AddIconComponent>,
+      title:"", 
+      headerStyle: {backgroundColor:"#FFFF", shadowColor: 'transparent'}
+    }}
+    />
+  </Navigator>
+    
+  
+);
+
+export const AppNavigator = () => (
+  <NavigationContainer independent={true}>
+    <TabNavigator/>
+  </NavigationContainer>
+);

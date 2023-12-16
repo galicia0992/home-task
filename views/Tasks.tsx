@@ -6,10 +6,6 @@ import { useSetBooleanNavContext } from '../context/BottomNavContext'
 type Props = {}
 
 const Tasks = ():JSX.Element => {
-    const setBooleanNav = useSetBooleanNavContext()
-    useEffect(() => {
-      setBooleanNav(true)
-    }, [])
     
   return (
     <View style={{backgroundColor:"white", height:"100%"}}>

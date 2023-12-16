@@ -6,7 +6,7 @@ export const logInUser = async (email, pass, navigation, setShowSpinner, setIsDi
   const auth = FIREBASE_AUTH;
   try {
     const response = await signInWithEmailAndPassword(auth, email, pass);
-    navigation.navigate('Tasks');
+    navigation.navigate('Home');
   } catch (error) {
     console.log(error.message)
   }finally{

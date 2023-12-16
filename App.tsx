@@ -5,11 +5,11 @@ import LogIn from './views/LogIn';
 import Tasks from './views/Tasks';
 import {ApplicationProvider} from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
-import NavBarBottom from './components/NavBarBottom';
+import { AppNavigator } from './components/NavBarBottom';
 import { BottomNavProvider } from './context/BottomNavContext';
 import AddIconComponent from './components/icons/AddIconComponent';
 import HeaderbackButton from './components/HeaderbackButton';
-
+import { TabNavigator } from './components/NavBarBottom';
 const Stack = createStackNavigator();
 function App(): JSX.Element {
   
@@ -26,15 +26,11 @@ function App(): JSX.Element {
                 headerStyle: {height:0},
               }}
             />
-            <Stack.Screen name="Tasks" component={Tasks} options={{
-                headerLeft:() => <HeaderbackButton></HeaderbackButton>,
-                headerRight:() => <AddIconComponent></AddIconComponent>,
-                title:"", 
-                headerStyle: {backgroundColor:"#FFFF", shadowColor: 'transparent'}
+            <Stack.Screen name="Home" component={TabNavigator} options={{
+                headerShown:false,
               }}/>
           </Stack.Navigator>
         </NavigationContainer>
-        <NavBarBottom></NavBarBottom>
       </ApplicationProvider>
     </BottomNavProvider>
     
