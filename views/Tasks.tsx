@@ -11,6 +11,7 @@ const Tasks = (): JSX.Element => {
   return (
     <>
       <View style={{backgroundColor: 'white', height: '100%'}}>
+        
         <Text>Tasks</Text>
         {
           booleanTask ? <ModalAddTask></ModalAddTask>:""
