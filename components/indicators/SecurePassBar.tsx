@@ -6,7 +6,7 @@ type Props = {
   createPass: any;
 };
 
-const ProgressBar = ({createPass}: Props): JSX.Element => {
+const SecurePassBar = ({createPass}: Props): JSX.Element => {
   const length: number = 8;
   const tieneMayusculas = /[A-Z]/.test(createPass);
   const tieneMinusculas = /[a-z]/.test(createPass);
@@ -50,4 +50,4 @@ const ProgressBar = ({createPass}: Props): JSX.Element => {
   );
 };
 
-export default ProgressBar;
+export default SecurePassBar;

@@ -4,7 +4,8 @@ import {useState, useEffect} from 'react';
 import {Input, Icon} from '@ui-kitten/components';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import CreateAccountButton from './CreateAccountButton';
-import ProgressBar from './indicators/ProgressBar';
+import SecurePassBar from './indicators/SecurePassBar';
+import { useSetOpacityContext } from '../context/BottomNavContext';
 
 const CreateAccount = () => {
   const [emailFocus, setEmailFocus] = useState<string>('#00000000');
@@ -18,9 +19,9 @@ const CreateAccount = () => {
   const [name, setName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-  const [secureConfirmTextEntry, setSecureConfirmTextEntry] =
-    useState<boolean>(true);
+  const [secureConfirmTextEntry, setSecureConfirmTextEntry] = useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const setOpacity = useSetOpacityContext()
 
   const renderInputIcon = (props: any): React.ReactElement => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
@@ -60,9 +61,9 @@ const CreateAccount = () => {
         <Input
           placeholder="Email"
           placeholderTextColor={'#FFFF'}
-          onFocus={() => setEmailFocus('#ffffff39')}
           textStyle={{color: '#FFFF'}}
-          onEndEditing={() => setEmailFocus('#00000000')}
+          onFocus={() => (setEmailFocus('#ffffff39'), setOpacity(20))}
+          onEndEditing={() => (setEmailFocus('#00000000'), setOpacity(0))}
           onChangeText={value => setCreateEmail(value)}
           value={createEmail}
           style={{
@@ -74,9 +75,9 @@ const CreateAccount = () => {
         <Input
           placeholder="Nombre"
           placeholderTextColor={'#FFFF'}
-          onFocus={() => setNameFocus('#ffffff39')}
           textStyle={{color: '#FFFF'}}
-          onEndEditing={() => setNameFocus('#00000000')}
+          onFocus={() => (setNameFocus('#ffffff39'), setOpacity(20))}
+          onEndEditing={() => (setNameFocus('#00000000'), setOpacity(0))}
           onChangeText={value => setName(value)}
           value={name}
           style={{
@@ -88,9 +89,9 @@ const CreateAccount = () => {
         <Input
           placeholder="Apelidos"
           placeholderTextColor={'#FFFF'}
-          onFocus={() => setLastNameFocus('#ffffff39')}
           textStyle={{color: '#FFFF'}}
-          onEndEditing={() => setLastNameFocus('#00000000')}
+          onFocus={() => (setLastNameFocus('#ffffff39'), setOpacity(20))}
+          onEndEditing={() => (setLastNameFocus('#00000000'), setOpacity(0))}
           onChangeText={value => setLastName(value)}
           value={lastName}
           style={{
@@ -102,9 +103,9 @@ const CreateAccount = () => {
         <Input
           placeholder="Contraseña"
           placeholderTextColor={'#FFFF'}
-          onFocus={() => setPassFocus('#ffffff39')}
           textStyle={{color: '#FFFF'}}
-          onEndEditing={() => setPassFocus('#00000000')}
+          onFocus={() => (setPassFocus('#ffffff39'), setOpacity(20))}
+          onEndEditing={() => (setPassFocus('#00000000'), setOpacity(0))}
           secureTextEntry={secureTextEntry}
           accessoryRight={renderInputIcon}
           onChangeText={value => setCreatePass(value)}
@@ -115,16 +116,16 @@ const CreateAccount = () => {
           }}
         />
         <View style={{marginTop: 10, alignItems: 'center'}}>
-          <ProgressBar
+          <SecurePassBar
           createPass={createPass}
           />
         </View>
         <Input
           placeholder="Confirmar contraseña"
           placeholderTextColor={'#FFFF'}
-          onFocus={() => setPassConfirmFocus('#ffffff39')}
           textStyle={{color: '#FFFF'}}
-          onEndEditing={() => setPassConfirmFocus('#00000000')}
+          onFocus={() => (setPassConfirmFocus('#ffffff39'), setOpacity(20))}
+          onEndEditing={() => (setPassConfirmFocus('#00000000'), setOpacity(0))}
           secureTextEntry={secureConfirmTextEntry}
           accessoryRight={renderInputConfirmIcon}
           onChangeText={value => setConfirmCreatePass(value)}

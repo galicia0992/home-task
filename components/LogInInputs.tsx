@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react';
 import {Input, Icon, IconElement, Button} from '@ui-kitten/components';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import LogInButton from './LogInButton';
+import { useSetOpacityContext } from '../context/BottomNavContext';
 
 const LogInInputs = () => {
   const [emailFocus, setEmailFocus] = useState<string>('#00000000');
@@ -12,6 +13,8 @@ const LogInInputs = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
+
+  const setOpacity = useSetOpacityContext()
 
   const renderInputIcon = (props: any): React.ReactElement => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
@@ -42,8 +45,8 @@ const LogInInputs = () => {
           placeholder="Email"
           placeholderTextColor={'#FFFF'}
           textStyle={{color:"#FFFF"}}
-          onFocus={() => setEmailFocus('#ffffff39')}
-          onEndEditing={() => setEmailFocus('#00000000')}
+          onFocus={() => (setEmailFocus('#ffffff39'), setOpacity(20))}
+          onEndEditing={() => (setEmailFocus('#00000000'), setOpacity(0))}
           onChangeText={value => (setEmail(value))}
           value={email}
           style={{
@@ -55,8 +58,8 @@ const LogInInputs = () => {
           placeholder="Contraseña"
           placeholderTextColor={'#FFFF'}
           textStyle={{color:"#FFFF"}}
-          onFocus={() => setPassFocus('#ffffff39')}
-          onEndEditing={() => setPassFocus('#00000000')}
+          onFocus={() => (setPassFocus('#ffffff39'), setOpacity(20))}
+          onEndEditing={() => (setPassFocus('#00000000'), setOpacity(0))}
           secureTextEntry={secureTextEntry}
           accessoryRight={renderInputIcon}
           onChangeText={value => (setPassword(value))}

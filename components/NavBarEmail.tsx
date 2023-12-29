@@ -5,6 +5,7 @@ import LogInInputs from './LogInInputs';
 import CreateAccount from './CreateAccount';
 import { useNavEmailContext } from '../context/NavEmailContext';
 import { useNavEmailIndexContext } from '../context/NavEmailContext';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 interface Props {
 
