@@ -13,7 +13,7 @@ export const useSetBooleanTaskContext = () => {
 };
 export const TaskBooleanProvider = (props) => {
   const [booleanTask, setBooleanTask] = useState(false);
-  console.log(booleanTask + " task")
+  
   return (
     <setBooleanTaskContext.Provider value={setBooleanTask}>
       <booleanTaskContext.Provider value={booleanTask}>

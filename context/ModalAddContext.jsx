@@ -13,7 +13,6 @@ export const useSetBooleanModalAddContext = () => {
 };
 export const ModalAddProvider = (props) => {
   const [booleanModalAdd, setBooleanModalAdd] = useState(false);
-  console.log(booleanModalAdd)
   return (
     <setBooleanModalAddContext.Provider value={setBooleanModalAdd}>
       <booleanModalAddContext.Provider value={booleanModalAdd}>

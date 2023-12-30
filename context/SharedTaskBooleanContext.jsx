@@ -13,7 +13,7 @@ export const useSetBooleanSharedTaskContext = () => {
 };
 export const SharedTaskBooleanProvider = (props) => {
   const [booleanSharedTask, setBooleanSharedTask] = useState(false);
-  console.log(booleanSharedTask + " shared")
+  
   return (
     <setBooleanSharedTaskContext.Provider value={setBooleanSharedTask}>
       <booleanSharedTaskContext.Provider value={booleanSharedTask}>

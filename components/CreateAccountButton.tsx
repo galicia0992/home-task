@@ -16,6 +16,7 @@ type Props = {
   setLastName: any;
   isDisabled:any,
   setIsDisabled:any
+  setGetToken:any
 };
 
 const CreateAccountButton = ({
@@ -30,11 +31,13 @@ const CreateAccountButton = ({
   setLastName,
   setName,
   isDisabled,
-  setIsDisabled
+  setIsDisabled,
+  setGetToken
 }: Props) => {
   const [showSpinner, setShowSpinner] = useState<boolean>(false);
   let regex = /\.(com|net|org|edu|gov)$/i;
   const setSelectedIndex = useNavEmailIndexContext();
+
   const userCreation = (): void => {
     if (createEmail.includes('@') && regex.test(createEmail)) {
       if (
@@ -60,6 +63,7 @@ const CreateAccountButton = ({
         setCreatePass('');
         setLastName('');
         setName('');
+        setGetToken("")
       }
     } else {
       Alert.alert(`Verifica el correo`, '', [

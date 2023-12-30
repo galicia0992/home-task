@@ -1,11 +1,13 @@
-import {View} from 'react-native';
-import React from 'react';
+import {View, Button, Pressable} from 'react-native';
+import React, {useRef} from 'react';
 import {useState, useEffect} from 'react';
 import {Input, Icon} from '@ui-kitten/components';
+import {Button as Btn, ButtonText} from '@gluestack-ui/themed';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import CreateAccountButton from './CreateAccountButton';
 import SecurePassBar from './indicators/SecurePassBar';
-import { useSetOpacityContext } from '../context/BottomNavContext';
+import {useSetOpacityContext} from '../context/BottomNavContext';
+import Recaptcha, {RecaptchaRef} from 'react-native-recaptcha-that-works';
 
 const CreateAccount = () => {
   const [emailFocus, setEmailFocus] = useState<string>('#00000000');
@@ -19,9 +21,29 @@ const CreateAccount = () => {
   const [name, setName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-  const [secureConfirmTextEntry, setSecureConfirmTextEntry] = useState<boolean>(true);
+  const [secureConfirmTextEntry, setSecureConfirmTextEntry] =
+    useState<boolean>(true);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const setOpacity = useSetOpacityContext()
+  const [isDisabledRecaptcha, setIsDisabledRecaptcha] =
+    useState<boolean>(false);
+  const [getToken, setGetToken] = useState<any>('');
+  const setOpacity = useSetOpacityContext();
+
+  const recaptcha = useRef<RecaptchaRef | null>(null);
+
+  const send = () => {
+    recaptcha.current?.open();
+  };
+  const ClosePress = () => {
+    recaptcha.current?.close();
+  };
+  const onVerify = (token: any) => {
+    setGetToken(token);
+  };
+
+  const onExpire = () => {
+    console.warn('expired!');
+  };
 
   const renderInputIcon = (props: any): React.ReactElement => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
@@ -46,15 +68,20 @@ const CreateAccount = () => {
         createPass == '' ||
         confirmCreatePass == '' ||
         name == '' ||
-        lastName == ''
+        lastName == '' ||
+        getToken == ''
       ) {
         setIsDisabled(true);
+        setIsDisabledRecaptcha(false);
       } else {
         setIsDisabled(false);
       }
+      if (getToken !== '') {
+        setIsDisabledRecaptcha(true);
+      }
     };
     disabledHandler();
-  }, [createEmail, createPass, confirmCreatePass, name, lastName]);
+  }, [createEmail, createPass, confirmCreatePass, name, lastName, getToken]);
   return (
     <>
       <View style={{width: '90%', marginBottom: 'auto'}}>
@@ -116,9 +143,7 @@ const CreateAccount = () => {
           }}
         />
         <View style={{marginTop: 10, alignItems: 'center'}}>
-          <SecurePassBar
-          createPass={createPass}
-          />
+          <SecurePassBar createPass={createPass} />
         </View>
         <Input
           placeholder="Confirmar contraseña"
@@ -136,6 +161,30 @@ const CreateAccount = () => {
             marginTop: 10,
           }}
         />
+        <Recaptcha
+          ref={recaptcha}
+          siteKey="6LegHkApAAAAAKkWyNR3tSovXxF0Mpltoak-ElG4"
+          baseUrl="http://anyalaperrita.com.mx"
+          onVerify={onVerify}
+          onExpire={onExpire}
+          size="normal"
+          footerComponent={
+            <Button title="Close on footer" onPress={ClosePress} />
+          }
+        />
+        <Btn
+          isDisabled={isDisabledRecaptcha}
+          size="md"
+          variant="solid"
+          action="primary"
+          isFocusVisible={false}
+          onPress={send}
+          marginTop={20}
+        >
+          {
+            !getToken ? <ButtonText>{"Recaptcha: Sin resolver"}</ButtonText>:<ButtonText>{"Recaptcha: Resuelto"}</ButtonText>
+          }
+        </Btn>
       </View>
       <CreateAccountButton
         createEmail={createEmail}
@@ -146,6 +195,7 @@ const CreateAccount = () => {
         setConfirmCreatePass={setConfirmCreatePass}
         name={name}
         setName={setName}
+        setGetToken={setGetToken}
         lastName={lastName}
         setLastName={setLastName}
         isDisabled={isDisabled}

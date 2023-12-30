@@ -13,7 +13,7 @@ export const useSetBooleanNotesContext = () => {
 };
 export const NotesBooleanProvider = (props) => {
   const [booleanNotes, setBooleanNotes] = useState(false);
-  console.log(booleanNotes + " notes")
+  
   return (
     <setBooleanNotesContext.Provider value={setBooleanNotes}>
       <booleanNotesContext.Provider value={booleanNotes}>
