@@ -8,6 +8,8 @@ import CreateAccountButton from './CreateAccountButton';
 import SecurePassBar from './indicators/SecurePassBar';
 import {useSetOpacityContext} from '../context/BottomNavContext';
 import Recaptcha, {RecaptchaRef} from 'react-native-recaptcha-that-works';
+import CaptchaAlert from './alerts/CaptchaAlert';
+
 
 const CreateAccount = () => {
   const [emailFocus, setEmailFocus] = useState<string>('#00000000');
@@ -27,8 +29,9 @@ const CreateAccount = () => {
   const [isDisabledRecaptcha, setIsDisabledRecaptcha] =
     useState<boolean>(false);
   const [getToken, setGetToken] = useState<any>('');
-  const setOpacity = useSetOpacityContext();
+  const [showAlertDialog, setShowAlertDialog] = useState(false)
 
+  const setOpacity = useSetOpacityContext();
   const recaptcha = useRef<RecaptchaRef | null>(null);
 
   const send = () => {
@@ -73,11 +76,13 @@ const CreateAccount = () => {
       ) {
         setIsDisabled(true);
         setIsDisabledRecaptcha(false);
+
       } else {
         setIsDisabled(false);
       }
       if (getToken !== '') {
         setIsDisabledRecaptcha(true);
+        setShowAlertDialog(true)
       }
     };
     disabledHandler();
@@ -85,6 +90,10 @@ const CreateAccount = () => {
   return (
     <>
       <View style={{width: '90%', marginBottom: 'auto'}}>
+        <CaptchaAlert
+        showAlertDialog={showAlertDialog}
+        setShowAlertDialog={setShowAlertDialog}
+        ></CaptchaAlert>
         <Input
           placeholder="Email"
           placeholderTextColor={'#FFFF'}
