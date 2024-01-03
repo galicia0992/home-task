@@ -1,4 +1,4 @@
-import {ProgressBar as Progressbar} from '@ui-kitten/components';
+import {ProgressBar as Progressbar, Text} from '@ui-kitten/components';
 import {useState, useEffect} from 'react';
 import React from 'react';
 
@@ -14,11 +14,17 @@ const SecurePassBar = ({createPass}: Props): JSX.Element => {
   const tieneCaracteresEspeciales = /[^\w\d]/.test(createPass);
   const [statusBar, setStatusBar] = useState<string>('primary');
   const [securityVal, setSecurityVal] = useState<number>(0);
+  const [passSecColor, setPassSecColor] = useState<string>("white")
+  const [showPassSec, setShowPassSec] = useState<boolean>(false)
+  const [passSecLevel, setPassSecLevel] = useState<string>("")
   useEffect(() => {
     if (createPass.length == 0) {
       setSecurityVal(0);
     } else if (createPass.length < length) {
       setStatusBar('danger');
+      setPassSecColor("red")
+      setShowPassSec(true)
+      setPassSecLevel("Bajo")
       setSecurityVal(0.2);
     } else if (
       !tieneNumeros ||
@@ -27,6 +33,8 @@ const SecurePassBar = ({createPass}: Props): JSX.Element => {
       !tieneMinusculas
     ) {
       setStatusBar('warning');
+      setPassSecColor("yellow")
+      setPassSecLevel("Medio")
       setSecurityVal(0.5);
     } else if (
       tieneNumeros &&
@@ -36,17 +44,24 @@ const SecurePassBar = ({createPass}: Props): JSX.Element => {
       createPass.length > length
     ) {
       setStatusBar('success');
+      setPassSecColor("green")
+      setPassSecLevel("Alto")
       setSecurityVal(1);
     }
   }, [createPass]);
 
   return (
-    <Progressbar
-      progress={securityVal}
-      style={{width: '100%'}}
-      size="large"
-      status={statusBar}
-    />
+    <>
+    {
+      showPassSec ?<><Progressbar
+          progress={securityVal}
+          style={{ width: '100%' }}
+          size="large"
+          status={statusBar} /><Text
+            style={{ color: passSecColor, textAlign: "left", width: "100%", fontWeight: "300", fontSize: 12 }}
+          >Seguridad de contraseña: {passSecLevel}</Text></>:""
+    }
+    </>
   );
 };
 

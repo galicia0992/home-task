@@ -29,7 +29,7 @@ const CreateAccount = () => {
   const [isDisabledRecaptcha, setIsDisabledRecaptcha] =
     useState<boolean>(false);
   const [getToken, setGetToken] = useState<any>('');
-  const [showAlertDialog, setShowAlertDialog] = useState(false)
+  const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false)
 
   const setOpacity = useSetOpacityContext();
   const recaptcha = useRef<RecaptchaRef | null>(null);
@@ -75,18 +75,21 @@ const CreateAccount = () => {
         getToken == ''
       ) {
         setIsDisabled(true);
-        setIsDisabledRecaptcha(false);
-
       } else {
         setIsDisabled(false);
-      }
-      if (getToken !== '') {
-        setIsDisabledRecaptcha(true);
-        setShowAlertDialog(true)
       }
     };
     disabledHandler();
   }, [createEmail, createPass, confirmCreatePass, name, lastName, getToken]);
+  useEffect(() => {
+    if (getToken !== '') {
+      setIsDisabledRecaptcha(true);
+      setShowAlertDialog(true)
+    }else{
+      setIsDisabledRecaptcha(false);
+    }
+  }, [getToken])
+  
   return (
     <>
       <View style={{width: '90%', marginBottom: 'auto'}}>
