@@ -1,15 +1,15 @@
-import {getDatabase, ref, onValue} from 'firebase/database';
 
-const getTask = async (setListaLinks, email) => {
-  const db = getDatabase();
-  const starCountRef = ref(db, `${email}/0`);
-  onValue(starCountRef, snapshot => {
-    const data = snapshot.val();
-    let arr = []
-    Object.values(data).map(item => {
-      arr.push(item);
-    });
-    setListaLinks(arr);
-  });
+const getTask = async (setData, user) => {
+  
+    try {
+    const response = await fetch(`https://task-casa-default-rtdb.firebaseio.com/${user}/.json`)
+    const data = await response.json()
+    Object.values(data[0]).map(item =>{
+      setData(item)
+    })
+    } catch (error) {
+      console.log(error)
+    }
+    
 };
 export default getTask;

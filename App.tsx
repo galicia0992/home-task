@@ -9,6 +9,7 @@ import {TabNavigator} from './components/NavBarBottom';
 import {ModalAddProvider} from './context/ModalAddContext';
 import {NotesBooleanProvider} from './context/NotesBooleanContext';
 import {SharedTaskBooleanProvider} from './context/SharedTaskBooleanContext';
+import { UserProvider } from './context/UserContext';
 import {TaskBooleanProvider} from './context/TaskBooleanContext';
 import {GluestackUIProvider, Text} from '@gluestack-ui/themed';
 import {config} from '@gluestack-ui/config';
@@ -20,6 +21,7 @@ function App(): JSX.Element {
         <SharedTaskBooleanProvider>
           <TaskBooleanProvider>
             <ModalAddProvider>
+              <UserProvider>
               <BottomNavProvider>
                 <ApplicationProvider {...eva} theme={eva.light}>
                   <NavigationContainer>
@@ -43,6 +45,7 @@ function App(): JSX.Element {
                   </NavigationContainer>
                 </ApplicationProvider>
               </BottomNavProvider>
+              </UserProvider>
             </ModalAddProvider>
           </TaskBooleanProvider>
         </SharedTaskBooleanProvider>

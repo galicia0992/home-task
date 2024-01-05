@@ -1,12 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Card, Modal, Text } from '@ui-kitten/components';
 import { useBooleanModalAddContext } from '../../context/ModalAddContext';
 import { useSetBooleanModalAddContext } from '../../context/ModalAddContext';
+import { useUserContext } from '../../context/UserContext';
+import postTask from '../../api/postTask';
 
 export const ModalAddTask = (): React.ReactElement => {
 const setBooleanModalAdd = useSetBooleanModalAddContext()
 const booleanModalAdd = useBooleanModalAddContext()
+const user = useUserContext()
+const lol = () =>{
+  postTask(user)
+}
 
   return (
     <View style={styles.container}>
@@ -20,7 +26,7 @@ const booleanModalAdd = useBooleanModalAddContext()
           <Text>
 Welcome to UI Kitten Task 😻
           </Text>
-          <Button onPress={() => setBooleanModalAdd(false)}>
+          <Button onPress={() => lol()}>
             DISMISS
           </Button>
         </Card>

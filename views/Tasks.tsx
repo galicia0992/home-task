@@ -3,25 +3,19 @@ import React, {useEffect, useState} from 'react';
 import {ModalAddTask} from '../components/modals/ModalAddTask';
 import {useBooleanTaskContext} from '../context/TaskBooleanContext';
 import {VStack, Box, Textarea} from '@gluestack-ui/themed';
-
+import getTask from '../api/getTask';
+import { useUserContext } from '../context/UserContext';
 type Props = {};
 
 const Tasks = (): JSX.Element => {
   const booleanTask = useBooleanTaskContext();
+  const user = useUserContext()
   const [data, setData] = useState<any>([])
+
   useEffect(() => {
-    const getTask = async() =>{
-      try {
-      const response = await fetch(`https://task-casa-default-rtdb.firebaseio.com/Galicia0992@gmail1com/.json`)
-      const data = await response.json()
-      setData(data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getTask()
+    getTask(setData, user.replace(/\./g, '1'))
   }, [])
-  console.log(data[0])
+  console.log(data)
   return (
     <>
       <View style={{backgroundColor: 'white', height: '100%'}}>
