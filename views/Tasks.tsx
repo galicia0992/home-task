@@ -10,12 +10,12 @@ type Props = {};
 const Tasks = (): JSX.Element => {
   const booleanTask = useBooleanTaskContext();
   const user = useUserContext()
-  const [data, setData] = useState<any>([])
+  const [data, setData] = useState<any[]>([])
 
   useEffect(() => {
     getTask(setData, user.replace(/\./g, '1'))
-  }, [])
-  console.log(data)
+  }, [data])
+  
   return (
     <>
       <View style={{backgroundColor: 'white', height: '100%'}}>
@@ -30,6 +30,11 @@ const Tasks = (): JSX.Element => {
               isDisabled={false}
               w="100%"
             />
+            {
+              data.map((item, index) =>{
+                return (<Text key={index}>{item.category}</Text>)
+              })
+            }
           </Box>
         </VStack>
       </View>

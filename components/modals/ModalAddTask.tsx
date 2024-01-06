@@ -10,7 +10,7 @@ export const ModalAddTask = (): React.ReactElement => {
 const setBooleanModalAdd = useSetBooleanModalAddContext()
 const booleanModalAdd = useBooleanModalAddContext()
 const user = useUserContext()
-const lol = () =>{
+const post = () =>{
   postTask(user)
 }
 
@@ -26,7 +26,7 @@ const lol = () =>{
           <Text>
 Welcome to UI Kitten Task 😻
           </Text>
-          <Button onPress={() => lol()}>
+          <Button onPress={() => post()}>
             DISMISS
           </Button>
         </Card>
