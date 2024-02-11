@@ -39,6 +39,7 @@ const [selected, setSelected] = useState<string>('');
 
   useEffect(() => {
     console.log(selected);
+    console.log(selected)
   }, [selected]);
 
   return (
