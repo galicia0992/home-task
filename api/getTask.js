@@ -1,6 +1,6 @@
 import {getDatabase, ref, onValue} from 'firebase/database';
 
-const getTask = async (setListaLinks, email) => {
+const getTask = async (setTask, email) => {
   const db = getDatabase();
   const starCountRef = ref(db, `${email}/0`);
   onValue(starCountRef, snapshot => {
@@ -9,7 +9,7 @@ const getTask = async (setListaLinks, email) => {
     Object.values(data).map(item => {
       arr.push(item);
     });
-    setListaLinks(arr);
+    setTask(arr);
   });
 };
 export default getTask;

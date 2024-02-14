@@ -9,6 +9,7 @@ import {TabNavigator} from './components/NavBarBottom';
 import {ModalAddProvider} from './context/ModalAddContext';
 import {NotesBooleanProvider} from './context/NotesBooleanContext';
 import {SharedTaskBooleanProvider} from './context/SharedTaskBooleanContext';
+import { EmailProvider } from './context/EmailContext';
 import {TaskBooleanProvider} from './context/TaskBooleanContext';
 import {GluestackUIProvider, Text} from '@gluestack-ui/themed';
 import {config} from '@gluestack-ui/config';
@@ -17,6 +18,7 @@ function App(): JSX.Element {
   return (
     <GluestackUIProvider config={config}>
       <NotesBooleanProvider>
+        <EmailProvider>
         <SharedTaskBooleanProvider>
           <TaskBooleanProvider>
             <ModalAddProvider>
@@ -46,6 +48,7 @@ function App(): JSX.Element {
             </ModalAddProvider>
           </TaskBooleanProvider>
         </SharedTaskBooleanProvider>
+        </EmailProvider>
       </NotesBooleanProvider>
     </GluestackUIProvider>
   );

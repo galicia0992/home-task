@@ -10,6 +10,7 @@ import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import { NavEmailProvider } from '../context/NavEmailContext';
 import {useSetBooleanNavContext} from '../context/BottomNavContext';
 
+
 const LogIn = (): JSX.Element => {
   const setBooleanNav = useSetBooleanNavContext()
 

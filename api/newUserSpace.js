@@ -17,5 +17,12 @@ const newUserSpace = (email, tarea, categoria, usuarioSolicitante, completado) =
         completado: completado,
         id: Date.now()
     })
+    push(ref(db, `${email}/` + 2),{
+        category: categoria,
+        usuarioSolicitante: usuarioSolicitante,
+        tarea: tarea,
+        completado: completado,
+        id: Date.now()
+    })
 }
 export default newUserSpace;
